@@ -1,0 +1,5 @@
+{
+  "name": "CyberCCTV Dashboard",
+  "description": "A hacker-style CCTV monitoring dashboard with live HLS streams, real-time status, and neon aesthetics.",
+  "requestFramePermissions": []
+}
