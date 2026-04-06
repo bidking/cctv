@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Hls from 'hls.js';
-import { Maximize2, RefreshCw, AlertCircle, Activity, Signal } from 'lucide-react';
+import { Maximize2, RefreshCw, AlertCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 interface CCTVPlayerProps {
@@ -11,13 +11,20 @@ interface CCTVPlayerProps {
 export const CCTVPlayer: React.FC<CCTVPlayerProps> = ({ url, location }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const hlsRef = useRef<Hls | null>(null);
+  
   const [status, setStatus] = useState<'ONLINE' | 'OFFLINE' | 'LOADING'>('LOADING');
   const [stats, setStats] = useState({ fps: 0, latency: 0 });
-  const [errorCount, setErrorCount] = useState(0);
 
   const initPlayer = () => {
     if (!videoRef.current) return;
     
+    // Cleanup existing instance before re-init
+    if (hlsRef.current) {
+      hlsRef.current.destroy();
+      hlsRef.current = null;
+    }
+
     setStatus('LOADING');
     
     if (Hls.isSupported()) {
@@ -25,41 +32,39 @@ export const CCTVPlayer: React.FC<CCTVPlayerProps> = ({ url, location }) => {
         enableWorker: true,
         lowLatencyMode: true,
         backBufferLength: 90,
+        manifestLoadingMaxRetry: 4,
+        levelLoadingMaxRetry: 4,
       });
 
+      hlsRef.current = hls;
       hls.loadSource(url);
       hls.attachMedia(videoRef.current);
 
       hls.on(Hls.Events.MANIFEST_PARSED, () => {
         videoRef.current?.play().catch(() => {
-          // Auto-play might be blocked
           console.warn('Auto-play blocked');
         });
         setStatus('ONLINE');
-        setErrorCount(0);
       });
 
       hls.on(Hls.Events.ERROR, (event, data) => {
         if (data.fatal) {
+          console.error('HLS Fatal Error:', data.type, data.details);
           setStatus('OFFLINE');
-          setErrorCount(prev => prev + 1);
-          switch (data.type) {
-            case Hls.ErrorTypes.NETWORK_ERROR:
-              hls.startLoad();
-              break;
-            case Hls.ErrorTypes.MEDIA_ERROR:
-              hls.recoverMediaError();
-              break;
-            default:
-              hls.destroy();
-              break;
+          
+          if (data.type === Hls.ErrorTypes.NETWORK_ERROR) {
+            hls.startLoad();
+          } else if (data.type === Hls.ErrorTypes.MEDIA_ERROR) {
+            hls.recoverMediaError();
           }
         }
       });
 
-      // Simple FPS estimation
+      // Stats update loop
       let lastTime = performance.now();
       let frames = 0;
+      let animationId: number;
+
       const updateStats = () => {
         const now = performance.now();
         frames++;
@@ -71,19 +76,31 @@ export const CCTVPlayer: React.FC<CCTVPlayerProps> = ({ url, location }) => {
           frames = 0;
           lastTime = now;
         }
-        if (status === 'ONLINE') requestAnimationFrame(updateStats);
+        animationId = requestAnimationFrame(updateStats);
       };
-      requestAnimationFrame(updateStats);
+      animationId = requestAnimationFrame(updateStats);
 
-      return () => hls.destroy();
+      return () => {
+        cancelAnimationFrame(animationId);
+        hls.destroy();
+        hlsRef.current = null;
+      };
     } else if (videoRef.current.canPlayType('application/vnd.apple.mpegurl')) {
-      // Native HLS support (Safari)
+      // Native HLS (Safari/iOS)
       videoRef.current.src = url;
-      videoRef.current.addEventListener('loadedmetadata', () => {
+      const onLoaded = () => {
         videoRef.current?.play();
         setStatus('ONLINE');
-      });
-      videoRef.current.addEventListener('error', () => setStatus('OFFLINE'));
+      };
+      const onError = () => setStatus('OFFLINE');
+      
+      videoRef.current.addEventListener('loadedmetadata', onLoaded);
+      videoRef.current.addEventListener('error', onError);
+      
+      return () => {
+        videoRef.current?.removeEventListener('loadedmetadata', onLoaded);
+        videoRef.current?.removeEventListener('error', onError);
+      };
     }
   };
 
@@ -95,12 +112,22 @@ export const CCTVPlayer: React.FC<CCTVPlayerProps> = ({ url, location }) => {
   }, [url]);
 
   const toggleFullscreen = () => {
-    if (containerRef.current?.requestFullscreen) {
-      containerRef.current.requestFullscreen();
+    if (!containerRef.current) return;
+    
+    if (document.fullscreenElement) {
+      document.exitFullscreen();
+    } else {
+      containerRef.current.requestFullscreen().catch(() => {
+        // Fallback for iOS
+        if (videoRef.current && (videoRef.current as any).webkitEnterFullscreen) {
+          (videoRef.current as any).webkitEnterFullscreen();
+        }
+      });
     }
   };
 
-  const reload = () => {
+  const reload = (e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
     initPlayer();
   };
 
@@ -120,9 +147,9 @@ export const CCTVPlayer: React.FC<CCTVPlayerProps> = ({ url, location }) => {
           </span>
         </div>
         <div className="flex items-center gap-2 text-[8px] text-white/40 font-mono">
-          <span>{stats.fps} FPS</span>
+          <span>{stats.fps || '--'} FPS</span>
           <span className="w-px h-2 bg-white/10" />
-          <span>{stats.latency}MS</span>
+          <span>{stats.latency || '--'}MS</span>
         </div>
       </div>
 
@@ -144,7 +171,7 @@ export const CCTVPlayer: React.FC<CCTVPlayerProps> = ({ url, location }) => {
             <AlertCircle size={24} className="mb-2 text-red-500/50" />
             <span className="text-[10px] font-bold tracking-[0.3em] uppercase">Connection Lost</span>
             <button 
-              onClick={reload}
+              onClick={(e) => reload(e)}
               className="mt-4 px-3 py-1 border border-white/10 text-[9px] uppercase tracking-widest hover:bg-white hover:text-black transition-all"
             >
               Reconnect
@@ -160,19 +187,21 @@ export const CCTVPlayer: React.FC<CCTVPlayerProps> = ({ url, location }) => {
         )}
       </div>
 
-      {/* Footer Controls */}
-      <div className="absolute bottom-0 left-0 right-0 translate-y-full group-hover:translate-y-0 transition-transform bg-black/60 backdrop-blur-md p-1.5 flex justify-end gap-1 z-30">
+      {/* Footer Controls - Always visible on touch, hover on desktop */}
+      <div className="absolute bottom-0 left-0 right-0 md:translate-y-full md:group-hover:translate-y-0 transition-transform bg-black/60 backdrop-blur-md p-1.5 flex justify-end gap-1 z-30">
         <button 
-          onClick={reload}
-          className="p-1 hover:bg-white/10 text-white/60 hover:text-white rounded transition-colors"
+          onClick={(e) => reload(e)}
+          className="p-2 md:p-1 hover:bg-white/10 text-white/60 hover:text-white rounded transition-colors"
+          aria-label="Reload"
         >
-          <RefreshCw size={12} />
+          <RefreshCw size={14} className="md:w-3 md:h-3" />
         </button>
         <button 
           onClick={toggleFullscreen}
-          className="p-1 hover:bg-white/10 text-white/60 hover:text-white rounded transition-colors"
+          className="p-2 md:p-1 hover:bg-white/10 text-white/60 hover:text-white rounded transition-colors"
+          aria-label="Fullscreen"
         >
-          <Maximize2 size={12} />
+          <Maximize2 size={14} className="md:w-3 md:h-3" />
         </button>
       </div>
 
