@@ -4,86 +4,141 @@ import { Terminal, Shield, Cpu, Wifi, Clock, LayoutGrid, Settings } from 'lucide
 import { motion, AnimatePresence } from 'framer-motion';
 
 const CCTV_STREAMS = [
+  // BOGOR KOTA
   {
     id: 'kujang',
+    category: 'BOGOR',
     name: 'TUGU KUJANG BOGOR',
     url: 'https://restreamer2.kotabogor.go.id/memfs/5a5cf878-9d9b-4400-a73a-27a5b24a6ec4_output_0.m3u8?session=DiYkH3SkSbH8ByHuTAMnQa'
   },
   {
     id: 'juanda',
+    category: 'BOGOR',
     name: 'JUANDA ARAH SURKEN',
     url: 'https://restreamer3.kotabogor.go.id/memfs/f6b50f38-9184-418e-b3f9-05faaa9b387d_output_0.m3u8?session=Ev2qVgRVuiJAkdzbMbTGpi'
   },
+  // CIBINONG
   {
-    id: 'cibinong',
-    name: 'PA CIBINONG',
-    url: 'https://pacibinong.cctvbadilag.my.id/604719PACIBINONG/streams/014468970364727561929927.m3u8'
+    id: 'ccm-1',
+    category: 'CIBINONG',
+    name: 'LAMPU MERAH CCM',
+    url: 'https://itscctv-dishub.bogorkab.go.id/stream/PEMDA/video1_stream.m3u8?_HLS_msn=11&_HLS_part=1&_HLS_skip=YES'
   },
-  // Adding placeholders to fill the grid if needed, or just use these 3
+  {
+    id: 'ccm-2',
+    category: 'CIBINONG',
+    name: 'LAMPU MERAH CCM 2',
+    url: 'https://itscctv-dishub.bogorkab.go.id/stream/PEMDA2/video1_stream.m3u8?_HLS_msn=11&_HLS_part=2&_HLS_skip=YES'
+  },
+  {
+    id: 'flyover-cibinong',
+    category: 'CIBINONG',
+    name: 'FLY OVER CIBINONG',
+    url: 'https://itscctv-dishub.bogorkab.go.id/stream/CIBINONG/video1_stream.m3u8?_HLS_msn=9&_HLS_part=2&_HLS_skip=YES'
+  },
+  {
+    id: 'pakansari-1',
+    category: 'CIBINONG',
+    name: 'LAMPU MERAH PAKANSARI 1',
+    url: 'https://itscctv-dishub.bogorkab.go.id/stream/BAPPENDA/video1_stream.m3u8?_HLS_msn=10&_HLS_part=6&_HLS_skip=YES'
+  },
+  {
+    id: 'pakansari-2',
+    category: 'CIBINONG',
+    name: 'LAMPU MERAH PAKANSARI 2',
+    url: 'https://itscctv-dishub.bogorkab.go.id/stream/BAPPENDA1/video1_stream.m3u8?_HLS_msn=10&_HLS_part=7&_HLS_skip=YES'
+  },
+  {
+    id: 'pakansari-3',
+    category: 'CIBINONG',
+    name: 'LAMPU MERAH PAKANSARI 3',
+    url: 'https://itscctv-dishub.bogorkab.go.id/stream/BAPPENDA2/video1_stream.m3u8?_HLS_msn=9&_HLS_part=9&_HLS_skip=YES'
+  },
+  {
+    id: 'pakansari-4',
+    category: 'CIBINONG',
+    name: 'LAMPU MERAH PAKANSARI 4',
+    url: 'https://itscctv-dishub.bogorkab.go.id/stream/BAPPENDA3/video1_stream.m3u8?_HLS_msn=11&_HLS_part=1&_HLS_skip=YES'
+  },
+  {
+    id: 'mcd-cibinong',
+    category: 'CIBINONG',
+    name: 'LAMPU MERAH MCD CIBINONG',
+    url: 'https://itscctv-dishub.bogorkab.go.id/stream/PDAM/video1_stream.m3u8?_HLS_msn=14&_HLS_part=8&_HLS_skip=YES'
+  },
+  {
+    id: 'pdam-cibinong-1',
+    category: 'CIBINONG',
+    name: 'PDAM CIBINONG 1',
+    url: 'https://itscctv-dishub.bogorkab.go.id/stream/PDAM1/video1_stream.m3u8?_HLS_msn=24&_HLS_part=7&_HLS_skip=YES'
+  },
+  {
+    id: 'pdam-cibinong-2',
+    category: 'CIBINONG',
+    name: 'PDAM CIBINONG 2',
+    url: 'https://itscctv-dishub.bogorkab.go.id/stream/PDAM3/video1_stream.m3u8?_HLS_msn=9&_HLS_part=9&_HLS_skip=YES'
+  },
+  // SENTUL
+  {
+    id: 'sentul-interaction',
+    category: 'SENTUL',
+    name: 'SENTUL INTERACTION',
+    url: 'https://itscctv-dishub.bogorkab.go.id/stream/SENTUL/video1_stream.m3u8?_HLS_msn=9&_HLS_part=4&_HLS_skip=YES'
+  },
+  {
+    id: 'sentul-1',
+    category: 'SENTUL',
+    name: 'SENTUL 1',
+    url: 'https://itscctv-dishub.bogorkab.go.id/stream/SENTUL1/video1_stream.m3u8?_HLS_msn=17&_HLS_part=9&_HLS_skip=YES'
+  },
+  {
+    id: 'sentul-2',
+    category: 'SENTUL',
+    name: 'SENTUL 2',
+    url: 'https://itscctv-dishub.bogorkab.go.id/stream/SENTUL2/video1_stream.m3u8?_HLS_msn=8&_HLS_part=6&_HLS_skip=YES'
+  },
+  {
+    id: 'sentul-3',
+    category: 'SENTUL',
+    name: 'SENTUL 3',
+    url: 'https://itscctv-dishub.bogorkab.go.id/stream/SENTUL3/video1_stream.m3u8?_HLS_msn=8&_HLS_part=5&_HLS_skip=YES'
+  },
+  {
+    id: 'sentul-4',
+    category: 'SENTUL',
+    name: 'SENTUL 4',
+    url: 'https://itscctv-dishub.bogorkab.go.id/stream/SENTUL4/video1_stream.m3u8?_HLS_msn=10&_HLS_part=8&_HLS_skip=YES'
+  },
 ];
 
 export const Dashboard: React.FC = () => {
   const [time, setTime] = useState(new Date());
   const [isBooting, setIsBooting] = useState(true);
-  const [logs, setLogs] = useState<string[]>([]);
+  const [activeCategory, setActiveCategory] = useState<string>('ALL');
 
   useEffect(() => {
     const timer = setInterval(() => setTime(new Date()), 1000);
     
-    // Boot sequence simulation
-    const bootLogs = [
-      "INITIALIZING KERNEL...",
-      "LOADING NETWORK MODULES...",
-      "ESTABLISHING SECURE TUNNEL...",
-      "DECRYPTING HLS STREAMS...",
-      "SYSTEM READY."
-    ];
-    
-    let logIndex = 0;
-    const logInterval = setInterval(() => {
-      if (logIndex < bootLogs.length) {
-        setLogs(prev => [...prev, `[${new Date().toLocaleTimeString()}] ${bootLogs[logIndex]}`]);
-        logIndex++;
-      } else {
-        setTimeout(() => setIsBooting(false), 1000);
-        clearInterval(logInterval);
-      }
-    }, 400);
+    // Subtler boot sequence
+    const timeout = setTimeout(() => setIsBooting(false), 1500);
 
     return () => {
       clearInterval(timer);
-      clearInterval(logInterval);
+      clearTimeout(timeout);
     };
   }, []);
 
+  const categories = ['ALL', 'CIBINONG', 'SENTUL', 'BOGOR'];
+  const filteredStreams = activeCategory === 'ALL' 
+    ? CCTV_STREAMS 
+    : CCTV_STREAMS.filter(s => s.category === activeCategory);
+
   if (isBooting) {
     return (
-      <div className="fixed inset-0 bg-black flex items-center justify-center z-50 font-mono p-4">
-        <div className="max-w-md w-full">
-          <div className="flex items-center gap-2 mb-4 text-neon-green">
-            <Terminal size={20} />
-            <span className="text-sm font-bold tracking-widest">SYSTEM BOOT SEQUENCE</span>
-          </div>
-          <div className="space-y-1">
-            {logs.map((log, i) => (
-              <motion.div 
-                key={i}
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                className="text-[10px] text-neon-green/80"
-              >
-                {log}
-              </motion.div>
-            ))}
-          </div>
-          <div className="mt-8 h-1 bg-neutral-900 overflow-hidden">
-            <motion.div 
-              className="h-full bg-neon-green"
-              initial={{ width: 0 }}
-              animate={{ width: '100%' }}
-              transition={{ duration: 2.5, ease: "easeInOut" }}
-            />
-          </div>
+      <div className="fixed inset-0 bg-black flex items-center justify-center z-50 font-mono">
+        <div className="flex flex-col items-center gap-4">
+          <Shield className="text-neon-green animate-pulse" size={48} />
+          <span className="text-xs tracking-[0.5em] text-neon-green">SYSTEM INITIALIZING...</span>
         </div>
       </div>
     );
@@ -91,86 +146,63 @@ export const Dashboard: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col p-4 md:p-6 gap-6 max-w-[1600px] mx-auto">
-      {/* Top Header */}
-      <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-neon-green/20 pb-4">
+      {/* Header */}
+      <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-white/10 pb-6">
         <div className="flex items-center gap-4">
-          <div className="p-2 bg-neon-green/10 rounded-lg border border-neon-green/30">
-            <Shield className="text-neon-green" size={24} />
+          <div className="p-2 bg-white/5 rounded border border-white/10">
+            <Shield className="text-neon-green" size={20} />
           </div>
           <div>
-            <h1 className="text-xl font-black tracking-tighter text-neon-green glitch-text">
-              CYBER-EYE <span className="text-neon-blue">v2.4.0</span>
+            <h1 className="text-lg font-bold tracking-tight text-white">
+              CCTV MONITOR <span className="text-neon-green opacity-50">v2.4</span>
             </h1>
-            <p className="text-[10px] text-neon-green/50 tracking-[0.2em]">CENTRAL MONITORING INTERFACE</p>
+            <p className="text-[10px] text-white/40 tracking-widest uppercase">Bogor District Surveillance</p>
           </div>
         </div>
 
-        <div className="flex flex-wrap items-center gap-4 text-[10px]">
-          <div className="flex items-center gap-2 px-3 py-1.5 bg-neutral-900 border border-neon-green/20 rounded">
-            <Cpu size={12} className="text-neon-blue" />
-            <span className="text-neon-green/70 uppercase">CPU: 42%</span>
+        <div className="flex items-center gap-3">
+          <div className="flex bg-white/5 p-1 rounded border border-white/10">
+            {categories.map(cat => (
+              <button
+                key={cat}
+                onClick={() => setActiveCategory(cat)}
+                className={`px-3 py-1 text-[10px] font-bold rounded transition-all ${
+                  activeCategory === cat 
+                    ? 'bg-neon-green text-black' 
+                    : 'text-white/60 hover:text-white'
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
           </div>
-          <div className="flex items-center gap-2 px-3 py-1.5 bg-neutral-900 border border-neon-green/20 rounded">
-            <Wifi size={12} className="text-neon-green" />
-            <span className="text-neon-green/70 uppercase">NET: STABLE</span>
-          </div>
-          <div className="flex items-center gap-2 px-3 py-1.5 bg-neon-green/10 border border-neon-green/40 rounded">
+          <div className="hidden md:flex items-center gap-2 px-3 py-1.5 bg-white/5 border border-white/10 rounded text-[10px] font-bold text-white/80">
             <Clock size={12} className="text-neon-green" />
-            <span className="text-neon-green font-bold">
-              {time.toLocaleTimeString('en-US', { hour12: false })}
-            </span>
+            {time.toLocaleTimeString('en-GB', { hour12: false })}
           </div>
         </div>
       </header>
 
       <main className="flex-1 flex flex-col gap-6">
-        {/* Stats Bar */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {[
-            { label: 'ACTIVE NODES', value: CCTV_STREAMS.length, color: 'text-neon-green' },
-            { label: 'UPTIME', value: '142:12:04', color: 'text-neon-blue' },
-            { label: 'THREAT LEVEL', value: 'LOW', color: 'text-neon-green' },
-            { label: 'DATA RATE', value: '12.4 MB/S', color: 'text-neon-blue' },
-          ].map((stat, i) => (
-            <div key={i} className="bg-neutral-900/50 border border-neon-green/10 p-3 rounded flex flex-col gap-1">
-              <span className="text-[8px] text-neon-green/40 tracking-widest">{stat.label}</span>
-              <span className={`text-sm font-bold ${stat.color}`}>{stat.value}</span>
-            </div>
-          ))}
-        </div>
-
         {/* Video Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {CCTV_STREAMS.map((stream) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          {filteredStreams.map((stream) => (
             <CCTVPlayer 
               key={stream.id}
               url={stream.url}
               location={stream.name}
             />
           ))}
-          
-          {/* Empty Slots to fill 6 if desired */}
-          {Array.from({ length: Math.max(0, 6 - CCTV_STREAMS.length) }).map((_, i) => (
-            <div key={`empty-${i}`} className="aspect-video bg-neutral-900/20 border border-dashed border-neon-green/10 rounded-sm flex items-center justify-center group hover:border-neon-green/30 transition-colors">
-              <div className="flex flex-col items-center gap-2 opacity-20 group-hover:opacity-40 transition-opacity">
-                <LayoutGrid size={24} />
-                <span className="text-[10px] tracking-widest">NODE EMPTY</span>
-              </div>
-            </div>
-          ))}
         </div>
       </main>
 
-      {/* Footer Status */}
-      <footer className="border-t border-neon-green/20 pt-4 flex justify-between items-center text-[9px] text-neon-green/40">
-        <div className="flex gap-4">
-          <span>SECURE_PROTOCOL: AES-256</span>
-          <span>ENCRYPTION: ACTIVE</span>
+      {/* Footer */}
+      <footer className="flex justify-between items-center text-[9px] text-white/20 uppercase tracking-widest py-4 border-t border-white/5">
+        <div className="flex gap-6">
+          <span>Nodes: {filteredStreams.length}</span>
+          <span>Status: Nominal</span>
         </div>
-        <div className="flex items-center gap-2">
-          <div className="w-1.5 h-1.5 rounded-full bg-neon-green animate-pulse" />
-          <span>SYSTEM_NOMINAL</span>
-        </div>
+        <span>© 2026 Cyber-Eye Systems</span>
       </footer>
     </div>
   );

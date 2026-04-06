@@ -107,79 +107,78 @@ export const CCTVPlayer: React.FC<CCTVPlayerProps> = ({ url, location }) => {
   return (
     <motion.div 
       ref={containerRef}
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }}
-      className="relative group bg-black neon-border overflow-hidden rounded-sm aspect-video flex flex-col"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      className="relative group bg-neutral-950 border border-white/10 overflow-hidden rounded aspect-video flex flex-col hover:border-neon-green/50 transition-colors"
     >
       {/* Header */}
-      <div className="absolute top-0 left-0 right-0 z-10 bg-black/60 backdrop-blur-sm p-2 flex justify-between items-center border-b border-neon-green/30">
+      <div className="absolute top-0 left-0 right-0 z-10 bg-black/40 backdrop-blur-md p-2 flex justify-between items-center border-b border-white/5">
         <div className="flex items-center gap-2">
-          <div className={`w-2 h-2 rounded-full ${status === 'ONLINE' ? 'bg-neon-green animate-pulse shadow-[0_0_8px_#00ff41]' : status === 'OFFLINE' ? 'bg-red-500 shadow-[0_0_8px_#ff3131]' : 'bg-yellow-500 animate-bounce'}`} />
-          <span className="text-[10px] font-bold tracking-widest uppercase truncate max-w-[150px]">
+          <div className={`w-1.5 h-1.5 rounded-full ${status === 'ONLINE' ? 'bg-neon-green shadow-[0_0_4px_#00ff41]' : status === 'OFFLINE' ? 'bg-red-500' : 'bg-yellow-500 animate-pulse'}`} />
+          <span className="text-[9px] font-bold tracking-wider text-white/90 uppercase truncate max-w-[180px]">
             {location}
           </span>
         </div>
-        <div className="flex items-center gap-3 text-[9px] opacity-70">
-          <span className="flex items-center gap-1"><Activity size={10} /> {stats.fps} FPS</span>
-          <span className="flex items-center gap-1"><Signal size={10} /> {stats.latency}ms</span>
+        <div className="flex items-center gap-2 text-[8px] text-white/40 font-mono">
+          <span>{stats.fps} FPS</span>
+          <span className="w-px h-2 bg-white/10" />
+          <span>{stats.latency}MS</span>
         </div>
       </div>
 
       {/* Video Container */}
-      <div className="relative flex-1 bg-neutral-900 overflow-hidden crt-effect">
+      <div className="relative flex-1 bg-black overflow-hidden">
         <video 
           ref={videoRef}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity"
           muted
           playsInline
         />
         
-        {/* Scanline Overlay */}
-        <div className="scanline" />
+        {/* Subtler Scanline Overlay */}
+        <div className="absolute inset-0 pointer-events-none opacity-[0.03] bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_2px,3px_100%]" />
 
         {/* Status Overlays */}
         {status === 'OFFLINE' && (
-          <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/80 text-red-500 z-20">
-            <AlertCircle size={48} className="mb-2 animate-pulse" />
-            <span className="text-sm font-bold tracking-tighter glitch-text">SIGNAL LOST</span>
+          <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/90 text-white/80 z-20">
+            <AlertCircle size={24} className="mb-2 text-red-500/50" />
+            <span className="text-[10px] font-bold tracking-[0.3em] uppercase">Connection Lost</span>
             <button 
               onClick={reload}
-              className="mt-4 px-4 py-1 border border-red-500 text-[10px] hover:bg-red-500 hover:text-black transition-colors"
+              className="mt-4 px-3 py-1 border border-white/10 text-[9px] uppercase tracking-widest hover:bg-white hover:text-black transition-all"
             >
-              RETRY CONNECTION
+              Reconnect
             </button>
           </div>
         )}
 
         {status === 'LOADING' && (
-          <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/40 z-20">
-            <RefreshCw size={32} className="animate-spin text-neon-green mb-2" />
-            <span className="text-[10px] tracking-widest animate-pulse">ESTABLISHING LINK...</span>
+          <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/60 z-20">
+            <div className="w-4 h-4 border-2 border-neon-green/20 border-t-neon-green rounded-full animate-spin mb-2" />
+            <span className="text-[8px] tracking-[0.2em] text-white/40 uppercase">Linking...</span>
           </div>
         )}
       </div>
 
       {/* Footer Controls */}
-      <div className="absolute bottom-0 left-0 right-0 translate-y-full group-hover:translate-y-0 transition-transform bg-black/80 p-2 flex justify-end gap-2 z-30">
+      <div className="absolute bottom-0 left-0 right-0 translate-y-full group-hover:translate-y-0 transition-transform bg-black/60 backdrop-blur-md p-1.5 flex justify-end gap-1 z-30">
         <button 
           onClick={reload}
-          className="p-1.5 hover:bg-neon-green/20 text-neon-green rounded transition-colors"
-          title="Reload Stream"
+          className="p-1 hover:bg-white/10 text-white/60 hover:text-white rounded transition-colors"
         >
-          <RefreshCw size={14} />
+          <RefreshCw size={12} />
         </button>
         <button 
           onClick={toggleFullscreen}
-          className="p-1.5 hover:bg-neon-green/20 text-neon-green rounded transition-colors"
-          title="Fullscreen"
+          className="p-1 hover:bg-white/10 text-white/60 hover:text-white rounded transition-colors"
         >
-          <Maximize2 size={14} />
+          <Maximize2 size={12} />
         </button>
       </div>
 
       {/* Timestamp Overlay */}
-      <div className="absolute bottom-2 left-2 text-[9px] font-mono text-neon-green/70 z-10 pointer-events-none">
-        REC: {new Date().toISOString().split('T')[0]} {new Date().toLocaleTimeString()}
+      <div className="absolute bottom-2 left-2 text-[8px] font-mono text-white/20 z-10 pointer-events-none uppercase">
+        {new Date().toLocaleTimeString('en-GB', { hour12: false })} / {new Date().toLocaleDateString('en-GB')}
       </div>
     </motion.div>
   );
