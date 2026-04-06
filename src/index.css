@@ -8,6 +8,46 @@
   --color-neon-red: #ff3131;
 }
 
+/* Leaflet Hacker Theme Overrides */
+.leaflet-container {
+  font-family: var(--font-mono) !important;
+}
+
+.leaflet-tile {
+  filter: brightness(0.6) contrast(1.2) saturate(0.5) hue-rotate(150deg) !important;
+}
+
+.leaflet-popup-content-wrapper, .leaflet-popup-tip {
+  background: #0a0a0a !important;
+  color: #00ff41 !important;
+  border: 1px solid rgba(0, 255, 65, 0.3);
+  box-shadow: 0 0 15px rgba(0, 255, 65, 0.1);
+}
+
+.leaflet-popup-content {
+  margin: 0 !important;
+}
+
+.leaflet-container .leaflet-control-attribution {
+  background: rgba(0, 0, 0, 0.7) !important;
+  color: rgba(0, 255, 65, 0.3) !important;
+  font-size: 8px !important;
+}
+
+.hacker-popup .leaflet-popup-close-button {
+  color: #00ff41 !important;
+}
+
+@keyframes pulse-glow {
+  0% { box-shadow: 0 0 5px #00ff41; }
+  50% { box-shadow: 0 0 15px #00ff41; }
+  100% { box-shadow: 0 0 5px #00ff41; }
+}
+
+.custom-hacker-marker div {
+  animation: pulse-glow 2s infinite;
+}
+
 @layer base {
   body {
     @apply bg-black text-white font-mono overflow-x-hidden antialiased;
