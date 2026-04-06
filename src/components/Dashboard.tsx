@@ -241,7 +241,7 @@ export const Dashboard: React.FC = () => {
           <span>Nodes: {filteredStreams.length}</span>
           <span>Status: Nominal</span>
         </div>
-        <span>© 2026 Cyber-Eye Systems</span>
+        <span>© 2026 ASTROLYNX EYE SYSTEM</span>
       </footer>
     </div>
   );
