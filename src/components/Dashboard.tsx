@@ -22,92 +22,92 @@ const CCTV_STREAMS = [
     id: 'ccm-1',
     category: 'CIBINONG',
     name: 'LAMPU MERAH CCM',
-    url: 'https://itscctv-dishub.bogorkab.go.id/stream/PEMDA/video1_stream.m3u8?_HLS_msn=11&_HLS_part=1&_HLS_skip=YES'
+    url: 'https://itscctv-dishub.bogorkab.go.id/stream/PEMDA/video1_stream.m3u8'
   },
   {
     id: 'ccm-2',
     category: 'CIBINONG',
     name: 'LAMPU MERAH CCM 2',
-    url: 'https://itscctv-dishub.bogorkab.go.id/stream/PEMDA2/video1_stream.m3u8?_HLS_msn=11&_HLS_part=2&_HLS_skip=YES'
+    url: 'https://itscctv-dishub.bogorkab.go.id/stream/PEMDA2/video1_stream.m3u8'
   },
   {
     id: 'flyover-cibinong',
     category: 'CIBINONG',
     name: 'FLY OVER CIBINONG',
-    url: 'https://itscctv-dishub.bogorkab.go.id/stream/CIBINONG/video1_stream.m3u8?_HLS_msn=9&_HLS_part=2&_HLS_skip=YES'
+    url: 'https://itscctv-dishub.bogorkab.go.id/stream/CIBINONG/video1_stream.m3u8'
   },
   {
     id: 'pakansari-1',
     category: 'CIBINONG',
     name: 'LAMPU MERAH PAKANSARI 1',
-    url: 'https://itscctv-dishub.bogorkab.go.id/stream/BAPPENDA/video1_stream.m3u8?_HLS_msn=10&_HLS_part=6&_HLS_skip=YES'
+    url: 'https://itscctv-dishub.bogorkab.go.id/stream/BAPPENDA/video1_stream.m3u8'
   },
   {
     id: 'pakansari-2',
     category: 'CIBINONG',
     name: 'LAMPU MERAH PAKANSARI 2',
-    url: 'https://itscctv-dishub.bogorkab.go.id/stream/BAPPENDA1/video1_stream.m3u8?_HLS_msn=10&_HLS_part=7&_HLS_skip=YES'
+    url: 'https://itscctv-dishub.bogorkab.go.id/stream/BAPPENDA1/video1_stream.m3u8'
   },
   {
     id: 'pakansari-3',
     category: 'CIBINONG',
     name: 'LAMPU MERAH PAKANSARI 3',
-    url: 'https://itscctv-dishub.bogorkab.go.id/stream/BAPPENDA2/video1_stream.m3u8?_HLS_msn=9&_HLS_part=9&_HLS_skip=YES'
+    url: 'https://itscctv-dishub.bogorkab.go.id/stream/BAPPENDA2/video1_stream.m3u8'
   },
   {
     id: 'pakansari-4',
     category: 'CIBINONG',
     name: 'LAMPU MERAH PAKANSARI 4',
-    url: 'https://itscctv-dishub.bogorkab.go.id/stream/BAPPENDA3/video1_stream.m3u8?_HLS_msn=11&_HLS_part=1&_HLS_skip=YES'
+    url: 'https://itscctv-dishub.bogorkab.go.id/stream/BAPPENDA3/video1_stream.m3u8'
   },
   {
     id: 'mcd-cibinong',
     category: 'CIBINONG',
     name: 'LAMPU MERAH MCD CIBINONG',
-    url: 'https://itscctv-dishub.bogorkab.go.id/stream/PDAM/video1_stream.m3u8?_HLS_msn=14&_HLS_part=8&_HLS_skip=YES'
+    url: 'https://itscctv-dishub.bogorkab.go.id/stream/PDAM/video1_stream.m3u8'
   },
   {
     id: 'pdam-cibinong-1',
     category: 'CIBINONG',
     name: 'PDAM CIBINONG 1',
-    url: 'https://itscctv-dishub.bogorkab.go.id/stream/PDAM1/video1_stream.m3u8?_HLS_msn=24&_HLS_part=7&_HLS_skip=YES'
+    url: 'https://itscctv-dishub.bogorkab.go.id/stream/PDAM1/video1_stream.m3u8'
   },
   {
     id: 'pdam-cibinong-2',
     category: 'CIBINONG',
     name: 'PDAM CIBINONG 2',
-    url: 'https://itscctv-dishub.bogorkab.go.id/stream/PDAM3/video1_stream.m3u8?_HLS_msn=9&_HLS_part=9&_HLS_skip=YES'
+    url: 'https://itscctv-dishub.bogorkab.go.id/stream/PDAM3/video1_stream.m3u8'
   },
   // SENTUL
   {
     id: 'sentul-interaction',
     category: 'SENTUL',
     name: 'SENTUL INTERACTION',
-    url: 'https://itscctv-dishub.bogorkab.go.id/stream/SENTUL/video1_stream.m3u8?_HLS_msn=9&_HLS_part=4&_HLS_skip=YES'
+    url: 'https://itscctv-dishub.bogorkab.go.id/stream/SENTUL/video1_stream.m3u8'
   },
   {
     id: 'sentul-1',
     category: 'SENTUL',
     name: 'SENTUL 1',
-    url: 'https://itscctv-dishub.bogorkab.go.id/stream/SENTUL1/video1_stream.m3u8?_HLS_msn=17&_HLS_part=9&_HLS_skip=YES'
+    url: 'https://itscctv-dishub.bogorkab.go.id/stream/SENTUL1/video1_stream.m3u8'
   },
   {
     id: 'sentul-2',
     category: 'SENTUL',
     name: 'SENTUL 2',
-    url: 'https://itscctv-dishub.bogorkab.go.id/stream/SENTUL2/video1_stream.m3u8?_HLS_msn=8&_HLS_part=6&_HLS_skip=YES'
+    url: 'https://itscctv-dishub.bogorkab.go.id/stream/SENTUL2/video1_stream.m3u8'
   },
   {
     id: 'sentul-3',
     category: 'SENTUL',
     name: 'SENTUL 3',
-    url: 'https://itscctv-dishub.bogorkab.go.id/stream/SENTUL3/video1_stream.m3u8?_HLS_msn=8&_HLS_part=5&_HLS_skip=YES'
+    url: 'https://itscctv-dishub.bogorkab.go.id/stream/SENTUL3/video1_stream.m3u8'
   },
   {
     id: 'sentul-4',
     category: 'SENTUL',
     name: 'SENTUL 4',
-    url: 'https://itscctv-dishub.bogorkab.go.id/stream/SENTUL4/video1_stream.m3u8?_HLS_msn=10&_HLS_part=8&_HLS_skip=YES'
+    url: 'https://itscctv-dishub.bogorkab.go.id/stream/SENTUL4/video1_stream.m3u8'
   },
 ];
 
