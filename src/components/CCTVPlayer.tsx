@@ -12,9 +12,26 @@ export const CCTVPlayer: React.FC<CCTVPlayerProps> = ({ url, location }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const hlsRef = useRef<Hls | null>(null);
+  const animationIdRef = useRef<number | null>(null);
   
   const [status, setStatus] = useState<'ONLINE' | 'OFFLINE' | 'LOADING'>('LOADING');
   const [stats, setStats] = useState({ fps: 0, latency: 0 });
+  const [showControls, setShowControls] = useState(false);
+  const controlsTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const hideControlsWithDelay = () => {
+    if (controlsTimeoutRef.current) clearTimeout(controlsTimeoutRef.current);
+    controlsTimeoutRef.current = setTimeout(() => {
+      setShowControls(false);
+    }, 3000);
+  };
+
+  const handleContainerClick = () => {
+    setShowControls(prev => !prev);
+    if (!showControls) {
+      hideControlsWithDelay();
+    }
+  };
 
   const initPlayer = () => {
     if (!videoRef.current) return;
@@ -23,6 +40,10 @@ export const CCTVPlayer: React.FC<CCTVPlayerProps> = ({ url, location }) => {
     if (hlsRef.current) {
       hlsRef.current.destroy();
       hlsRef.current = null;
+    }
+    if (animationIdRef.current) {
+      cancelAnimationFrame(animationIdRef.current);
+      animationIdRef.current = null;
     }
 
     setStatus('LOADING');
@@ -63,7 +84,6 @@ export const CCTVPlayer: React.FC<CCTVPlayerProps> = ({ url, location }) => {
       // Stats update loop
       let lastTime = performance.now();
       let frames = 0;
-      let animationId: number;
 
       const updateStats = () => {
         const now = performance.now();
@@ -76,12 +96,12 @@ export const CCTVPlayer: React.FC<CCTVPlayerProps> = ({ url, location }) => {
           frames = 0;
           lastTime = now;
         }
-        animationId = requestAnimationFrame(updateStats);
+        animationIdRef.current = requestAnimationFrame(updateStats);
       };
-      animationId = requestAnimationFrame(updateStats);
+      animationIdRef.current = requestAnimationFrame(updateStats);
 
       return () => {
-        cancelAnimationFrame(animationId);
+        if (animationIdRef.current) cancelAnimationFrame(animationIdRef.current);
         hls.destroy();
         hlsRef.current = null;
       };
@@ -136,7 +156,8 @@ export const CCTVPlayer: React.FC<CCTVPlayerProps> = ({ url, location }) => {
       ref={containerRef}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="relative group bg-neutral-950 border border-white/10 overflow-hidden rounded aspect-video flex flex-col hover:border-neon-green/50 transition-colors"
+      onClick={handleContainerClick}
+      className="relative group bg-neutral-950 border border-white/10 overflow-hidden rounded aspect-video flex flex-col hover:border-neon-green/50 transition-colors cursor-pointer"
     >
       {/* Header */}
       <div className="absolute top-0 left-0 right-0 z-10 bg-black/40 backdrop-blur-md p-2 flex justify-between items-center border-b border-white/5">
@@ -187,17 +208,29 @@ export const CCTVPlayer: React.FC<CCTVPlayerProps> = ({ url, location }) => {
         )}
       </div>
 
-      {/* Footer Controls - Always visible on touch, hover on desktop */}
-      <div className="absolute bottom-0 left-0 right-0 md:translate-y-full md:group-hover:translate-y-0 transition-transform bg-black/60 backdrop-blur-md p-1.5 flex justify-end gap-1 z-30">
+      {/* Footer Controls - Hidden by default, show on click/hover */}
+      <div 
+        className={`absolute bottom-0 left-0 right-0 transition-transform bg-black/60 backdrop-blur-md p-1.5 flex justify-end gap-1 z-30 ${
+          showControls ? 'translate-y-0' : 'translate-y-full md:group-hover:translate-y-0'
+        }`}
+      >
         <button 
-          onClick={(e) => reload(e)}
+          onClick={(e) => {
+            e.stopPropagation();
+            reload(e);
+            hideControlsWithDelay();
+          }}
           className="p-2 md:p-1 hover:bg-white/10 text-white/60 hover:text-white rounded transition-colors"
           aria-label="Reload"
         >
           <RefreshCw size={14} className="md:w-3 md:h-3" />
         </button>
         <button 
-          onClick={toggleFullscreen}
+          onClick={(e) => {
+            e.stopPropagation();
+            toggleFullscreen();
+            hideControlsWithDelay();
+          }}
           className="p-2 md:p-1 hover:bg-white/10 text-white/60 hover:text-white rounded transition-colors"
           aria-label="Fullscreen"
         >
