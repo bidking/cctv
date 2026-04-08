@@ -5,7 +5,7 @@ import { Terminal, Shield, Cpu, Wifi, Clock, LayoutGrid, Settings, Map as MapIco
 import { motion, AnimatePresence } from 'framer-motion';
 
 const CCTV_STREAMS = [
-  // BOGOR KOTA
+  // BOGOR KOTA (Manual)
   {
     id: 'kujang',
     category: 'BOGOR',
@@ -20,113 +20,46 @@ const CCTV_STREAMS = [
     url: 'https://restreamer3.kotabogor.go.id/memfs/f6b50f38-9184-418e-b3f9-05faaa9b387d_output_0.m3u8?session=Ev2qVgRVuiJAkdzbMbTGpi',
     coords: [-6.5944, 106.7972] as [number, number]
   },
-  // CIBINONG
-  {
-    id: 'ccm-1',
-    category: 'CIBINONG',
-    name: 'LAMPU MERAH CCM',
-    url: 'https://itscctv-dishub.bogorkab.go.id/stream/PEMDA/video1_stream.m3u8',
-    coords: [-6.4833, 106.8444] as [number, number]
-  },
-  {
-    id: 'ccm-2',
-    category: 'CIBINONG',
-    name: 'LAMPU MERAH CCM 2',
-    url: 'https://itscctv-dishub.bogorkab.go.id/stream/PEMDA2/video1_stream.m3u8',
-    coords: [-6.4835, 106.8446] as [number, number]
-  },
-  {
-    id: 'flyover-cibinong',
-    category: 'CIBINONG',
-    name: 'FLY OVER CIBINONG',
-    url: 'https://itscctv-dishub.bogorkab.go.id/stream/CIBINONG/video1_stream.m3u8',
-    coords: [-6.4850, 106.8480] as [number, number]
-  },
-  {
-    id: 'pakansari-1',
-    category: 'CIBINONG',
-    name: 'LAMPU MERAH PAKANSARI 1',
-    url: 'https://itscctv-dishub.bogorkab.go.id/stream/BAPPENDA/video1_stream.m3u8',
-    coords: [-6.4917, 106.8333] as [number, number]
-  },
-  {
-    id: 'pakansari-2',
-    category: 'CIBINONG',
-    name: 'LAMPU MERAH PAKANSARI 2',
-    url: 'https://itscctv-dishub.bogorkab.go.id/stream/BAPPENDA1/video1_stream.m3u8',
-    coords: [-6.4920, 106.8335] as [number, number]
-  },
-  {
-    id: 'pakansari-3',
-    category: 'CIBINONG',
-    name: 'LAMPU MERAH PAKANSARI 3',
-    url: 'https://itscctv-dishub.bogorkab.go.id/stream/BAPPENDA2/video1_stream.m3u8',
-    coords: [-6.4925, 106.8340] as [number, number]
-  },
-  {
-    id: 'pakansari-4',
-    category: 'CIBINONG',
-    name: 'LAMPU MERAH PAKANSARI 4',
-    url: 'https://itscctv-dishub.bogorkab.go.id/stream/BAPPENDA3/video1_stream.m3u8',
-    coords: [-6.4930, 106.8345] as [number, number]
-  },
-  {
-    id: 'mcd-cibinong',
-    category: 'CIBINONG',
-    name: 'LAMPU MERAH MCD CIBINONG',
-    url: 'https://itscctv-dishub.bogorkab.go.id/stream/PDAM/video1_stream.m3u8',
-    coords: [-6.4800, 106.8400] as [number, number]
-  },
-  {
-    id: 'pdam-cibinong-1',
-    category: 'CIBINONG',
-    name: 'PDAM CIBINONG 1',
-    url: 'https://itscctv-dishub.bogorkab.go.id/stream/PDAM1/video1_stream.m3u8',
-    coords: [-6.4780, 106.8380] as [number, number]
-  },
-  {
-    id: 'pdam-cibinong-2',
-    category: 'CIBINONG',
-    name: 'PDAM CIBINONG 2',
-    url: 'https://itscctv-dishub.bogorkab.go.id/stream/PDAM3/video1_stream.m3u8',
-    coords: [-6.4770, 106.8370] as [number, number]
-  },
   // SENTUL
-  {
-    id: 'sentul-interaction',
-    category: 'SENTUL',
-    name: 'SENTUL INTERACTION',
-    url: 'https://itscctv-dishub.bogorkab.go.id/stream/SENTUL/video1_stream.m3u8',
-    coords: [-6.5583, 106.8667] as [number, number]
-  },
-  {
-    id: 'sentul-1',
-    category: 'SENTUL',
-    name: 'SENTUL 1',
-    url: 'https://itscctv-dishub.bogorkab.go.id/stream/SENTUL1/video1_stream.m3u8',
-    coords: [-6.5590, 106.8670] as [number, number]
-  },
-  {
-    id: 'sentul-2',
-    category: 'SENTUL',
-    name: 'SENTUL 2',
-    url: 'https://itscctv-dishub.bogorkab.go.id/stream/SENTUL2/video1_stream.m3u8',
-    coords: [-6.5600, 106.8680] as [number, number]
-  },
-  {
-    id: 'sentul-3',
-    category: 'SENTUL',
-    name: 'SENTUL 3',
-    url: 'https://itscctv-dishub.bogorkab.go.id/stream/SENTUL3/video1_stream.m3u8',
-    coords: [-6.5610, 106.8690] as [number, number]
-  },
-  {
-    id: 'sentul-4',
-    category: 'SENTUL',
-    name: 'SENTUL 4',
-    url: 'https://itscctv-dishub.bogorkab.go.id/stream/SENTUL4/video1_stream.m3u8',
-    coords: [-6.5620, 106.8700] as [number, number]
-  },
+  { id: 'sentul-1', category: 'SENTUL', name: 'SIMPANG SENTUL 1', url: 'https://itscctv-dishub.bogorkab.go.id/stream/SENTUL1/video1_stream.m3u8', coords: [-6.518387, 106.836096] as [number, number] },
+  { id: 'sentul-2', category: 'SENTUL', name: 'SIMPANG SENTUL 2', url: 'https://itscctv-dishub.bogorkab.go.id/stream/SENTUL2/video1_stream.m3u8', coords: [-6.518387, 106.836096] as [number, number] },
+  { id: 'sentul-3', category: 'SENTUL', name: 'SIMPANG SENTUL 3', url: 'https://itscctv-dishub.bogorkab.go.id/stream/SENTUL3/video1_stream.m3u8', coords: [-6.518387, 106.836096] as [number, number] },
+  { id: 'sentul-4', category: 'SENTUL', name: 'SIMPANG SENTUL 4', url: 'https://itscctv-dishub.bogorkab.go.id/stream/SENTUL4/video1_stream.m3u8', coords: [-6.518387, 106.836096] as [number, number] },
+  { id: 'sentul-ptz', category: 'SENTUL', name: 'SIMPANG SENTUL PTZ', url: 'https://itscctv-dishub.bogorkab.go.id/stream/SENTUL/video1_stream.m3u8', coords: [-6.518387, 106.836096] as [number, number] },
+  // PEMDA
+  { id: 'pemda-ptz', category: 'CIBINONG', name: 'SIMPANG PEMDA PTZ', url: 'https://itscctv-dishub.bogorkab.go.id/stream/PEMDA/video1_stream.m3u8', coords: [-6.485058, 106.843667] as [number, number] },
+  { id: 'pemda-1', category: 'CIBINONG', name: 'SIMPANG PEMDA 1', url: 'https://itscctv-dishub.bogorkab.go.id/stream/PEMDA1/video1_stream.m3u8', coords: [-6.485058, 106.843667] as [number, number] },
+  { id: 'pemda-2', category: 'CIBINONG', name: 'SIMPANG PEMDA 2', url: 'https://itscctv-dishub.bogorkab.go.id/stream/PEMDA2/video1_stream.m3u8', coords: [-6.485058, 106.843667] as [number, number] },
+  { id: 'pemda-3', category: 'CIBINONG', name: 'SIMPANG PEMDA 3', url: 'https://itscctv-dishub.bogorkab.go.id/stream/PEMDA3/video1_stream.m3u8', coords: [-6.485058, 106.843667] as [number, number] },
+  // PDAM
+  { id: 'pdam-ptz', category: 'CIBINONG', name: 'SIMPANG PDAM PTZ', url: 'https://itscctv-dishub.bogorkab.go.id/stream/PDAM/video1_stream.m3u8', coords: [-6.482619, 106.817786] as [number, number] },
+  { id: 'pdam-1', category: 'CIBINONG', name: 'SIMPANG PDAM 1', url: 'https://itscctv-dishub.bogorkab.go.id/stream/PDAM1/video1_stream.m3u8', coords: [-6.482619, 106.817786] as [number, number] },
+  { id: 'pdam-2', category: 'CIBINONG', name: 'SIMPANG PDAM 2', url: 'https://itscctv-dishub.bogorkab.go.id/stream/PDAM2/video1_stream.m3u8', coords: [-6.482619, 106.817786] as [number, number] },
+  { id: 'pdam-3', category: 'CIBINONG', name: 'SIMPANG PDAM 3', url: 'https://itscctv-dishub.bogorkab.go.id/stream/PDAM3/video1_stream.m3u8', coords: [-6.482619, 106.817786] as [number, number] },
+  { id: 'pdam-4', category: 'CIBINONG', name: 'SIMPANG PDAM 4', url: 'https://itscctv-dishub.bogorkab.go.id/stream/PDAM4/video1_stream.m3u8', coords: [-6.482619, 106.817786] as [number, number] },
+  // CIBINONG
+  { id: 'cibinong-ptz', category: 'CIBINONG', name: 'SIMPANG CIBINONG PTZ', url: 'https://itscctv-dishub.bogorkab.go.id/stream/CIBINONG/video1_stream.m3u8', coords: [-6.465406, 106.855573] as [number, number] },
+  // CIKARET
+  { id: 'cikaret-ptz', category: 'CIBINONG', name: 'SIMPANG CIKARET PTZ', url: 'https://itscctv-dishub.bogorkab.go.id/stream/CIKARET/video1_stream.m3u8', coords: [-6.477931, 106.84496] as [number, number] },
+  // CIAWI
+  { id: 'ciawi-ptz', category: 'CIAWI', name: 'SIMPANG CIAWI PTZ', url: 'https://itscctv-dishub.bogorkab.go.id/stream/CIAWI/video1_stream.m3u8', coords: [-6.655799, 106.847146] as [number, number] },
+  { id: 'ciawi-1', category: 'CIAWI', name: 'SIMPANG CIAWI 1', url: 'https://itscctv-dishub.bogorkab.go.id/stream/CIAWI1/video1_stream.m3u8', coords: [-6.655799, 106.847146] as [number, number] },
+  { id: 'ciawi-2', category: 'CIAWI', name: 'SIMPANG CIAWI 2', url: 'https://itscctv-dishub.bogorkab.go.id/stream/CIAWI2/video1_stream.m3u8', coords: [-6.655799, 106.847146] as [number, number] },
+  { id: 'ciawi-3', category: 'CIAWI', name: 'SIMPANG CIAWI 3', url: 'https://itscctv-dishub.bogorkab.go.id/stream/CIAWI3/video1_stream.m3u8', coords: [-6.655799, 106.847146] as [number, number] },
+  // GADOG
+  { id: 'gadog-ptz', category: 'PUNCAK', name: 'SIMPANG GADOG PTZ', url: 'https://itscctv-dishub.bogorkab.go.id/stream/GADOG/video1_stream.m3u8', coords: [-6.655415, 106.859108] as [number, number] },
+  { id: 'gadog-1', category: 'PUNCAK', name: 'SIMPANG GADOG 1', url: 'https://itscctv-dishub.bogorkab.go.id/stream/GADOG1/video1_stream.m3u8', coords: [-6.655415, 106.859108] as [number, number] },
+  { id: 'gadog-2', category: 'PUNCAK', name: 'SIMPANG GADOG 2', url: 'https://itscctv-dishub.bogorkab.go.id/stream/GADOG2/video1_stream.m3u8', coords: [-6.655415, 106.859108] as [number, number] },
+  { id: 'gadog-3', category: 'PUNCAK', name: 'SIMPANG GADOG 3', url: 'https://itscctv-dishub.bogorkab.go.id/stream/GADOG3/video1_stream.m3u8', coords: [-6.655415, 106.859108] as [number, number] },
+  // KANTOR DISHUB
+  { id: 'dishub-ptz', category: 'CIBINONG', name: 'SIMPANG KANTOR DISHUB PTZ', url: 'https://itscctv-dishub.bogorkab.go.id/stream/KANTORDISHUB/video1_stream.m3u8', coords: [-6.530293, 106.82958] as [number, number] },
+  // TAMAN SAFARI
+  { id: 'safari-ptz', category: 'PUNCAK', name: 'TAMAN SAFARI PTZ', url: 'https://itscctv-dishub.bogorkab.go.id/stream/TAMANSAFARI/video1_stream.m3u8', coords: [-6.687401, 106.94012] as [number, number] },
+  // BAPPENDA
+  { id: 'bappenda-ptz', category: 'CIBINONG', name: 'SIMPANG BAPPENDA PTZ', url: 'https://itscctv-dishub.bogorkab.go.id/stream/BAPPENDA/video1_stream.m3u8', coords: [-6.484866, 106.835879] as [number, number] },
+  { id: 'bappenda-1', category: 'CIBINONG', name: 'SIMPANG BAPPENDA 1', url: 'https://itscctv-dishub.bogorkab.go.id/stream/BAPPENDA1/video1_stream.m3u8', coords: [-6.484866, 106.835879] as [number, number] },
+  { id: 'bappenda-2', category: 'CIBINONG', name: 'SIMPANG BAPPENDA 2', url: 'https://itscctv-dishub.bogorkab.go.id/stream/BAPPENDA2/video1_stream.m3u8', coords: [-6.484866, 106.835879] as [number, number] },
+  { id: 'bappenda-3', category: 'CIBINONG', name: 'SIMPANG BAPPENDA 3', url: 'https://itscctv-dishub.bogorkab.go.id/stream/BAPPENDA3/video1_stream.m3u8', coords: [-6.484866, 106.835879] as [number, number] },
 ];
 
 export const Dashboard: React.FC = () => {
@@ -147,7 +80,7 @@ export const Dashboard: React.FC = () => {
     };
   }, []);
 
-  const categories = ['ALL', 'CIBINONG', 'SENTUL', 'BOGOR'];
+  const categories = ['ALL', 'CIBINONG', 'SENTUL', 'CIAWI', 'PUNCAK', 'BOGOR'];
   const filteredStreams = activeCategory === 'ALL' 
     ? CCTV_STREAMS 
     : CCTV_STREAMS.filter(s => s.category === activeCategory);
@@ -241,7 +174,7 @@ export const Dashboard: React.FC = () => {
           <span>Nodes: {filteredStreams.length}</span>
           <span>Status: Nominal</span>
         </div>
-        <span>© 2026 ASTROLYNX EYE SYSTEM</span>
+        <span>© 2026 Cyber-Eye Systems</span>
       </footer>
     </div>
   );

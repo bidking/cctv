@@ -23,12 +23,12 @@ export const CCTVMap: React.FC<CCTVMapProps> = ({ streams }) => {
     <div className="w-full h-full bg-neutral-900 border border-white/10 rounded overflow-hidden relative">
       <MapContainer 
         center={center} 
-        zoom={11} 
+        zoom={12} 
         style={{ height: '100%', width: '100%', background: '#0a0a0a' }}
         zoomControl={false}
       >
         <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+          attribution='&copy; CARTO'
           url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
         />
         {streams.map((stream) => (
@@ -48,6 +48,9 @@ export const CCTVMap: React.FC<CCTVMapProps> = ({ streams }) => {
           </Marker>
         ))}
       </MapContainer>
+
+      {/* Map Scanline Effect */}
+      <div className="absolute inset-0 pointer-events-none z-[1001] opacity-[0.05] bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_2px,3px_100%]" />
 
       {/* Map Overlay Info */}
       <div className="absolute top-4 right-4 z-[1000] bg-black/80 backdrop-blur-md p-3 border border-neon-green/30 font-mono text-[10px] text-neon-green pointer-events-none">
